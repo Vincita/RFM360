@@ -132,8 +132,9 @@ Dữ liệu được trích xuất từ **Azure SQL Server** gồm khoảng **11
 ```
 Customer360-Analysis/
 │
-├── Customer360_Report.pdf
-├── RFM_SQL_Query.sql
+├── Customer360_Dashboard.pbix
+├── Customer360_TransactionData_RFM_Model.sql
+├── Customer360_Segmentation_Report.pdf
 └── README.md
 ```
 

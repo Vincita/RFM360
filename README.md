@@ -1,188 +1,133 @@
-# Customer 360 – Customer Segmentation using RFM Analysis
+# Customer 360 – Phân khúc khách hàng bằng RFM Analysis
 
-## 1. Project Overview
+## 1. Tổng quan dự án
 
-This project builds a **Customer 360 view** by analyzing customer transaction data to understand customer behavior and value.
+Dự án xây dựng mô hình **Customer 360** nhằm phân tích hành vi và giá trị của khách hàng dựa trên dữ liệu giao dịch.
 
-The analysis applies the **RFM model (Recency, Frequency, Monetary)** combined with **BCG Matrix segmentation** to identify different customer groups and provide actionable insights for marketing and customer retention strategies.
+Phân tích sử dụng mô hình **RFM (Recency – Frequency – Monetary)** kết hợp với **BCG Matrix** để phân khúc khách hàng và đưa ra các insight phục vụ chiến lược marketing và giữ chân khách hàng.
 
-### Project Goals
-
-- Analyze customer transaction data to understand purchasing behavior.
-- Segment customers based on value and engagement level.
-- Identify key customer groups such as loyal customers, potential customers, and churn-risk customers.
-- Provide marketing recommendations to improve customer retention and revenue.
-
----
-
-# 2. Methodology
-
-## 2.1 Customer 360 Concept
-
-Customer 360 is a data analysis approach that builds a **comprehensive view of customers** by integrating information such as transaction history, purchase frequency, and spending value.
-
-This approach helps businesses:
-
-- Understand customer behavior
-- Identify high-value customers
-- Detect potential churn risks
-- Develop personalized marketing strategies
+### Mục tiêu
+- Phân tích hành vi mua hàng của khách hàng
+- Phân khúc khách hàng theo mức độ giá trị
+- Xác định các nhóm khách hàng quan trọng
+- Đề xuất chiến lược marketing và giữ chân khách hàng
 
 ---
 
-## 2.2 Analytical Models
+## 2. Phương pháp phân tích
 
-### RFM Model (Recency – Frequency – Monetary)
+### RFM Model
+Mô hình RFM đánh giá khách hàng dựa trên 3 yếu tố:
 
-The RFM model evaluates customer value based on three key metrics:
+- **Recency (R):** Thời gian từ lần mua gần nhất
+- **Frequency (F):** Tần suất mua hàng
+- **Monetary (M):** Tổng giá trị chi tiêu
 
-- **Recency (R):** Time since the customer's last purchase
-- **Frequency (F):** Number of purchases within a given time period
-- **Monetary (M):** Total amount spent by the customer
-
-Each metric is segmented using **quartile-based segmentation**, assigning scores from **1 to 4**.
-
-This creates **64 possible RFM combinations** used to identify customer behavior patterns.
-
----
+Các chỉ số được chia theo **quartile (1–4)** để tạo ra các nhóm hành vi khách hàng khác nhau.
 
 ### BCG Matrix
+BCG Matrix được sử dụng để đánh giá khách hàng theo:
 
-The **BCG Matrix** is used to evaluate customer segments based on:
+- Giá trị đóng góp
+- Tiềm năng tăng trưởng
 
-- Customer value contribution
-- Growth potential
-
-Customers are categorized into four groups:
-
-- **Stars:** High value and high growth potential
-- **Cash Cows:** Stable revenue contributors
-- **Question Marks:** Potential customers with growth opportunity
-- **Dogs:** Low value and low growth potential
-
-Combining **RFM and BCG** provides deeper insight into customer behavior and business value.
+Khách hàng được phân thành 4 nhóm:
+- **Stars** – giá trị cao, tiềm năng cao  
+- **Cash Cows** – đóng góp doanh thu ổn định  
+- **Question Marks** – có tiềm năng phát triển  
+- **Dogs** – giá trị và tiềm năng thấp  
 
 ---
 
-# 3. Dataset
+## 3. Dataset
 
-The dataset was extracted from **Azure SQL Server**, containing customer information and transaction data.
+Dữ liệu được trích xuất từ **Azure SQL Server** gồm khoảng **113,000 khách hàng** với dữ liệu giao dịch từ **06/2022 – 08/2022**.
 
-### Main Tables
+### Các bảng chính
 
 **Customer_Registered**
-
-- Customer contract information
-- Location and branch data
-- Customer status
-- Registration and cancellation dates
+- Thông tin khách hàng
+- Chi nhánh và khu vực
+- Trạng thái khách hàng
+- Ngày đăng ký và hủy hợp đồng
 
 **Customer_Transaction**
-
 - Transaction ID
 - Customer ID
-- Purchase date
-- GMV (transaction value)
-
-The dataset contains approximately **113,000 customers** with transaction data from **June 2022 to August 2022**.
+- Ngày giao dịch
+- GMV (giá trị giao dịch)
 
 ---
 
-# 4. Data Processing Workflow
-
-The analysis process includes the following steps:
+## 4. Quy trình xử lý dữ liệu
 
 1. **Data Cleaning**
-   - Keep active customers
-   - Remove invalid transactions
-   - Filter transactions with revenue greater than zero
+   - Lọc khách hàng đang hoạt động
+   - Loại bỏ giao dịch không hợp lệ
 
-2. **RFM Calculation**
-   - Calculate Recency, Frequency, and Monetary metrics
+2. **Tính toán RFM**
+   - Recency
+   - Frequency
+   - Monetary
 
-3. **Quartile Segmentation**
-   - Divide RFM metrics into four groups
+3. **Phân nhóm RFM**
+   - Chia dữ liệu theo quartile
+   - Gán điểm RFM từ 1–4
 
-4. **RFM Scoring**
-   - Assign scores from 1 to 4 for each metric
+4. **Phân khúc khách hàng**
+   - Tạo các nhóm khách hàng dựa trên RFM
 
-5. **Customer Segmentation**
-   - Generate RFM combinations to classify customer groups
-
-6. **BCG Classification**
-   - Evaluate customer segments based on value and growth potential
-
----
-
-# 5. Customer Segments
-
-The analysis identifies several key customer segments:
-
-**Champions (VIP Customers)**  
-Customers who spend frequently and recently with high transaction value.
-
-**Loyal Customers**  
-Customers with consistent purchase behavior and stable revenue contribution.
-
-**Potential Loyalists**  
-Customers with strong potential to become loyal customers in the future.
-
-**New Customers**  
-Recently acquired customers who have just started purchasing.
-
-**Price Sensitive Customers**  
-Customers who purchase often but spend relatively less.
-
-**At Risk Customers**  
-Customers who were active before but show declining engagement.
-
-**Lost Customers**  
-Customers who have stopped purchasing for a long time.
+5. **Phân loại BCG**
+   - Đánh giá giá trị và tiềm năng khách hàng
 
 ---
 
-# 6. Key Business Insights
+## 5. Các nhóm khách hàng chính
 
-Several important insights were identified from the analysis:
-
-- **Potential Loyalists** show the highest growth potential due to high purchase frequency and spending.
-- **VIP and Loyal Customers** play an important role in generating stable revenue.
-- A large portion of customers fall into **30–60 days and 90+ days recency groups**, indicating the need for re-engagement strategies.
-- **At Risk customers** require attention to prevent churn.
-
----
-
-# 7. Marketing Recommendations
-
-### VIP Customers
-
-- Provide exclusive promotions
-- Implement loyalty programs
-- Personalize customer experience
-
-### Loyal Customers
-
-- Maintain regular promotions
-- Increase engagement through email marketing
-
-### Potential Loyalists
-
-- Encourage repeat purchases
-- Introduce loyalty reward programs
-
-### At Risk Customers
-
-- Launch re-engagement campaigns
-- Offer personalized discounts
-
-### Lost Customers
-
-- Run win-back campaigns
-- Analyze reasons for customer churn
+- **Champions (VIP)** – khách hàng giá trị cao, mua thường xuyên  
+- **Loyal Customers** – khách hàng trung thành  
+- **Potential Loyalists** – khách hàng có tiềm năng trở thành loyal  
+- **New Customers** – khách hàng mới  
+- **Price Sensitive** – mua thường xuyên nhưng chi tiêu thấp  
+- **At Risk** – khách hàng có dấu hiệu giảm tương tác  
+- **Lost Customers** – khách hàng đã ngừng mua hàng
 
 ---
 
-## 8. Repository Structure
+## 6. Insight chính
+
+- Nhóm **Potential Loyalists** có tiềm năng tăng trưởng cao.  
+- **VIP và Loyal Customers** đóng góp phần lớn doanh thu.  
+- Nhiều khách hàng nằm trong nhóm **30–60 ngày và 90+ ngày Recency**, cho thấy cần chiến lược kích hoạt lại khách hàng.  
+- Nhóm **At Risk** cần được chăm sóc để tránh mất khách hàng.
+
+---
+
+## 7. Đề xuất chiến lược
+
+**VIP Customers**
+- Ưu đãi độc quyền
+- Chương trình loyalty
+
+**Loyal Customers**
+- Khuyến mãi định kỳ
+- Email marketing
+
+**Potential Loyalists**
+- Khuyến khích mua lặp lại
+- Chương trình tích điểm
+
+**At Risk Customers**
+- Chiến dịch re-engagement
+- Ưu đãi cá nhân hóa
+
+**Lost Customers**
+- Win-back campaign
+- Phân tích nguyên nhân rời bỏ
+
+---
+
+## 8. Cấu trúc Repository
 
 ```
 Customer360-Analysis/
@@ -192,13 +137,14 @@ Customer360-Analysis/
 └── README.md
 ```
 
-# 9. How to Use
+---
 
-1. Clone or download this repository.
-2. Read the detailed report in **Customer360_Report.pdf**.
-3. Review the SQL scripts used for RFM calculation.
-4. Explore insights and recommendations from the analysis.
+## Công cụ sử dụng
+- SQL
+- Data Analysis
+- Customer Segmentation
 
 ---
 
-*This project was created for educational and data analysis practice purposes.*
+**Lưu ý:**  
+Đây là dự án cá nhân nhằm thực hành phân tích dữ liệu, không đại diện cho bất kỳ tổ chức hay doanh nghiệp nào.

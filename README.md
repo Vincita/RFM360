@@ -134,7 +134,7 @@ Customer360-Analysis/
 │
 ├── Customer360_Dashboard.pbix
 ├── Customer360_TransactionData_RFM_Model.sql
-├── Customer360_Segmentation_Report.pdf
+├── Dự án Customer360_Báo cáo phân khúc khách hàng_ThangNguyen.pdf
 └── README.md
 ```
 
